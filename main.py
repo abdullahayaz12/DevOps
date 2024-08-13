@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World it is a new build, did it work? '
+    return 'Hello World it is a new build, did it work?  yes it is working '
 
 @app.errorhandler(500)
 def server_error(e):
