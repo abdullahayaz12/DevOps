@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World. how are you doing '
+    return 'The CICD Pipeline has been created and the docker has been deployed after testing with SonarQube. '
 
 @app.errorhandler(500)
 def server_error(e):
