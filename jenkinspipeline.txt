@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        SONARQUBE_SERVER = 'assignment-sonarqube-1' // Name of the SonarQube server configured in Jenkins
+        SONARQUBE_SCANNER = 'SonarQube Scanner' // Name of the SonarQube Scanner configured in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Replace with your repository URL and branch
+                git url: 'https://github.com/abdullahayaz12/DevOps.git', branch: 'pythonworkingcode'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool name: "${env.SONARQUBE_SCANNER}", type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=my_project_key -Dsonar.sources=. -Dsonar.host.url=http://sonarqube:9000 -Dsonar.token=${env.SONAR_AUTH_TOKEN}"
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('my-python-app:latest')
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    // Check if the container exists, stop and remove it if it does
+                    sh '''
+                    if [ $(docker ps -a -q -f name=pythontestapplication) ]; then
+                        docker stop pythontestapplication
+                        docker rm pythontestapplication
+                    fi
+                    docker run -d --name pythontestapplication -p 8001:8080 my-python-app:latest
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

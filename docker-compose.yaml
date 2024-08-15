@@ -1,0 +1,33 @@
+version: '3'
+services:
+    jenkins:
+        build: ./jenkinsimage2
+        user: root
+        ports:
+            - 8080:8080
+        volumes:
+            - jenkins_home:/var/jenkins_home
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /usr/bin/docker:/usr/bin/docker
+        networks:
+            - jenkins_network
+
+    sonarqube:
+        image: sonarqube:latest
+        ports:
+            - 9000:9000
+        volumes:
+            - sonarqube_data:/opt/sonarqube/data
+            - sonarqube_logs:/opt/sonarqube/logs
+            - sonarqube_extensions:/opt/sonarqube/extensions
+        networks:
+            - jenkins_network
+
+networks:
+    jenkins_network:
+
+volumes:
+    jenkins_home:
+    sonarqube_data:
+    sonarqube_logs:
+    sonarqube_extensions:

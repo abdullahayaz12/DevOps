@@ -1,0 +1,250 @@
+Started by user admin
+
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in /var/jenkins_home/workspace/CICDsonarQube
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/abdullahayaz12/DevOps.git
+ > git init /var/jenkins_home/workspace/CICDsonarQube # timeout=10
+Fetching upstream changes from https://github.com/abdullahayaz12/DevOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.2'
+ > git fetch --tags --force --progress -- https://github.com/abdullahayaz12/DevOps.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/abdullahayaz12/DevOps.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/pythonworkingcode^{commit} # timeout=10
+Checking out Revision 6d914ef1f0a611d9d3657c4d168b0f52486ce578 (refs/remotes/origin/pythonworkingcode)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 6d914ef1f0a611d9d3657c4d168b0f52486ce578 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b pythonworkingcode 6d914ef1f0a611d9d3657c4d168b0f52486ce578 # timeout=10
+Commit message: "Update main.py"
+ > git rev-list --no-walk 6d914ef1f0a611d9d3657c4d168b0f52486ce578 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: assignment-sonarqube-1
+[Pipeline] {
+[Pipeline] sh
++ /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner -Dsonar.projectKey=my_project_key -Dsonar.sources=. -Dsonar.host.url=http://sonarqube:9000 -Dsonar.token=******
+18:45:03.107 INFO  Scanner configuration file: /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/conf/sonar-scanner.properties
+18:45:03.110 INFO  Project root configuration file: NONE
+18:45:03.123 INFO  SonarScanner CLI 6.1.0.4477
+18:45:03.124 INFO  Java 17.0.12 Eclipse Adoptium (64-bit)
+18:45:03.124 INFO  Linux 6.5.0-1027-oem amd64
+18:45:03.143 INFO  User cache: /root/.sonar/cache
+18:45:03.486 INFO  JRE provisioning: os[linux], arch[x86_64]
+18:45:04.615 INFO  Communicating with SonarQube Server 10.6.0.92116
+18:45:04.772 INFO  Starting SonarScanner Engine...
+18:45:04.773 INFO  Java 17.0.11 Eclipse Adoptium (64-bit)
+18:45:04.793 WARN  Ignoring property 'sonar.host.url' from env variable 'SONARQUBE_SCANNER_PARAMS' because it is already defined
+18:45:05.161 INFO  Load global settings
+18:45:05.285 INFO  Load global settings (done) | time=125ms
+18:45:05.287 INFO  Server id: 147B411E-AZFL4AKPRb_cEsJaD0Tw
+18:45:05.293 INFO  Loading required plugins
+18:45:05.294 INFO  Load plugins index
+18:45:05.372 INFO  Load plugins index (done) | time=78ms
+18:45:05.372 INFO  Load/download plugins
+18:45:05.674 INFO  Load/download plugins (done) | time=302ms
+18:45:05.866 INFO  Process project properties
+18:45:05.869 INFO  Process project properties (done) | time=4ms
+18:45:05.874 INFO  Project key: my_project_key
+18:45:05.874 INFO  Base dir: /var/jenkins_home/workspace/CICDsonarQube
+18:45:05.874 INFO  Working dir: /var/jenkins_home/workspace/CICDsonarQube/.scannerwork
+18:45:05.879 INFO  Load project settings for component key: 'my_project_key'
+18:45:05.909 INFO  Load project settings for component key: 'my_project_key' (done) | time=31ms
+18:45:05.929 INFO  Load quality profiles
+18:45:06.051 INFO  Load quality profiles (done) | time=123ms
+18:45:06.068 INFO  Auto-configuring with CI 'Jenkins'
+18:45:06.102 INFO  Load active rules
+18:45:11.637 INFO  Load active rules (done) | time=5534ms
+18:45:11.643 INFO  Load analysis cache
+18:45:11.662 INFO  Load analysis cache (1.3 kB) | time=20ms
+18:45:11.689 WARN  The property 'sonar.login' is deprecated and will be removed in the future. Please use the 'sonar.token' property instead when passing a token.
+18:45:11.698 INFO  Preprocessing files...
+18:45:11.742 INFO  2 languages detected in 6 preprocessed files
+18:45:11.743 INFO  0 files ignored because of scm ignore settings
+18:45:11.744 INFO  Loading plugins for detected languages
+18:45:11.744 INFO  Load/download plugins
+18:45:11.744 INFO  Load/download plugins (done) | time=0ms
+18:45:11.769 INFO  Load project repositories
+18:45:11.794 INFO  Load project repositories (done) | time=25ms
+18:45:11.802 INFO  Indexing files...
+18:45:11.803 INFO  Project configuration:
+18:45:11.810 INFO  6 files indexed
+18:45:11.811 INFO  Quality profile for docker: Sonar way
+18:45:11.811 INFO  Quality profile for py: Sonar way
+18:45:11.811 INFO  ------------- Run sensors on module my_project_key
+18:45:11.830 INFO  Load metrics repository
+18:45:11.851 INFO  Load metrics repository (done) | time=20ms
+18:45:12.091 INFO  Sensor Python Sensor [python]
+18:45:12.093 WARN  Your code is analyzed as compatible with all Python 3 versions by default. You can get a more precise analysis by setting the exact Python version in your configuration via the parameter "sonar.python.version"
+18:45:12.189 INFO  Starting global symbols computation
+18:45:12.193 INFO  2 source files to be analyzed
+18:45:12.262 INFO  2/2 source files have been analyzed
+18:45:12.275 INFO  Starting rules execution
+18:45:12.276 INFO  2 source files to be analyzed
+18:45:12.480 INFO  2/2 source files have been analyzed
+18:45:12.481 INFO  The Python analyzer was able to leverage cached data from previous analyses for 0 out of 2 files. These files were not parsed.
+18:45:12.481 INFO  Sensor Python Sensor [python] (done) | time=390ms
+18:45:12.481 INFO  Sensor Cobertura Sensor for Python coverage [python]
+18:45:12.484 INFO  Sensor Cobertura Sensor for Python coverage [python] (done) | time=3ms
+18:45:12.484 INFO  Sensor PythonXUnitSensor [python]
+18:45:12.486 INFO  Sensor PythonXUnitSensor [python] (done) | time=2ms
+18:45:12.486 INFO  Sensor JaCoCo XML Report Importer [jacoco]
+18:45:12.487 INFO  'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+18:45:12.487 INFO  No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+18:45:12.487 INFO  Sensor JaCoCo XML Report Importer [jacoco] (done) | time=2ms
+18:45:12.487 INFO  Sensor Java Config Sensor [iac]
+18:45:12.490 INFO  0 source files to be analyzed
+18:45:12.495 INFO  0/0 source files have been analyzed
+18:45:12.495 INFO  Sensor Java Config Sensor [iac] (done) | time=7ms
+18:45:12.495 INFO  Sensor IaC Docker Sensor [iac]
+18:45:12.495 INFO  1 source file to be analyzed
+18:45:12.556 INFO  1/1 source file has been analyzed
+18:45:12.556 INFO  Sensor IaC Docker Sensor [iac] (done) | time=62ms
+18:45:12.557 INFO  Sensor TextAndSecretsSensor [text]
+18:45:12.557 INFO  Available processors: 12
+18:45:12.557 INFO  Using 12 threads for analysis.
+18:45:12.766 INFO  The property "sonar.tests" is not set. To improve the analysis accuracy, we categorize a file as a test file if any of the following is true:
+  * The filename starts with "test"
+  * The filename contains "test." or "tests."
+  * Any directory in the file path is named: "doc", "docs", "test" or "tests"
+  * Any directory in the file path has a name ending in "test" or "tests"
+
+18:45:12.776 INFO  Using git CLI to retrieve untracked files
+18:45:12.780 INFO  Analyzing language associated files and files included via "sonar.text.inclusions" that are tracked by git
+18:45:12.787 INFO  3 source files to be analyzed
+18:45:12.796 INFO  3/3 source files have been analyzed
+18:45:12.796 INFO  Sensor TextAndSecretsSensor [text] (done) | time=240ms
+18:45:12.801 INFO  ------------- Run sensors on project
+18:45:12.820 INFO  Sensor Zero Coverage Sensor
+18:45:12.824 INFO  Sensor Zero Coverage Sensor (done) | time=4ms
+18:45:12.828 INFO  CPD Executor 1 file had no CPD blocks
+18:45:12.828 INFO  CPD Executor Calculating CPD for 1 file
+18:45:12.833 INFO  CPD Executor CPD calculation finished (done) | time=4ms
+18:45:12.838 INFO  SCM revision ID '6d914ef1f0a611d9d3657c4d168b0f52486ce578'
+18:45:12.872 INFO  Analysis report generated in 35ms, dir size=203.4 kB
+18:45:12.879 INFO  Analysis report compressed in 8ms, zip size=26.3 kB
+18:45:12.912 INFO  Analysis report uploaded in 31ms
+18:45:12.913 INFO  ANALYSIS SUCCESSFUL, you can find the results at: http://sonarqube:9000/dashboard?id=my_project_key
+18:45:12.914 INFO  Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+18:45:12.914 INFO  More about the report processing at http://sonarqube:9000/api/ce/task?id=24d011f2-c4dd-4069-89ed-f35a931d24d0
+18:45:12.921 INFO  Analysis total time: 7.179 s
+18:45:12.922 INFO  SonarScanner Engine completed successfully
+18:45:12.951 INFO  EXECUTION SUCCESS
+18:45:12.952 INFO  Total time: 9.861s
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker build -t my-python-app:latest .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 600B done
+#1 WARN: LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 18)
+#1 WARN: JSONArgsRecommended: JSON arguments recommended for CMD to prevent unintended behavior related to OS signals (line 27)
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:2.7
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/library/python:2.7
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 56.16kB done
+#5 DONE 0.0s
+
+#6 [3/6] WORKDIR /usr/src/app
+#6 CACHED
+
+#7 [2/6] RUN mkdir -p /usr/src/app
+#7 CACHED
+
+#8 [4/6] COPY requirements.txt /usr/src/app/
+#8 CACHED
+
+#9 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [6/6] COPY . /usr/src/app
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers 0.0s done
+#11 writing image sha256:8ca95668a24af25b9bc54de4a7faeb7a8fd05df293b77ad0392e60454016251b done
+#11 naming to docker.io/library/my-python-app:latest done
+#11 DONE 0.0s
+
+ [33m2 warnings found (use docker --debug to expand):
+[0m - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 18)
+ - JSONArgsRecommended: JSON arguments recommended for CMD to prevent unintended behavior related to OS signals (line 27)
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Docker Container)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ docker ps -a -q -f name=pythontestapplication
++ [ d84461c2cff7 ]
++ docker stop pythontestapplication
+pythontestapplication
++ docker rm pythontestapplication
+pythontestapplication
++ docker run -d --name pythontestapplication -p 8001:8080 my-python-app:latest
+3fabf3d9db4efd98f7d7e374e3bb3eef2cab2da3a51f9591ccf77a2f9b805c4e
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
